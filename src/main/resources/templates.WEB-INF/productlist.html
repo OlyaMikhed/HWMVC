@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Product List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Product List</h1>
+<h2>
+    <a href="/product/add">Add new product</a>
+</h2>
+<br/>
+<br/>
+<div class="container">
+    <table class ="container" border="1">
+        <tr>
+            <th><h1>Title</h1></th>
+            <th><h1>Description</h1></th>
+            <th><h1>Edit</h1></th>
+            <th><h1>Delete</h1></th>
+        </tr>
+        <tr th:each ="product : ${products}" th:data-id="${product.id}">
+            <td class="title" th:utext="${product.title}"/>
+            <td class="description" th:utext="${product.description}"/>
+            <td>
+                <form th:method="GET" th:action="@{/product/edit}">
+                    <input type="hidden" name="id" th:value="${product.id}">
+                    <button type="submit">
+                        Edit
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form th:method="POST" th:action="@{/product/delete}">
+                    <input type="hidden" name="id" th:value="${product.id}">
+                    <button type="submit">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
